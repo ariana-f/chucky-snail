@@ -8,8 +8,19 @@ export class LoadScene extends Phaser.Scene {
         this.load.spritesheet('player', './images/player.png', {
             frameWidth: 128,
             frameHeight: 144
-        })
-
+        });
+        this.load.spritesheet('ground', './images/ground.png', {
+            frameWidth: 128,
+            frameHeight: 128
+        });
+        this.add.spritesheet('objects', './images/objects.png', {
+            frameWidth: 128,
+            frameHeight: 128
+        });
+        this.load.spritesheet('snail', './images/snail.png', {
+            frameWidth: 128,
+            frameHeight: 96
+        });
     }
 
     create() {
@@ -28,6 +39,16 @@ export class LoadScene extends Phaser.Scene {
             yoyo: true,
             repeat: -1
         });
+
+        this.anims.create({
+            key: 'snail-walking',
+            frames: this.anims.generateFrameNames('snail', {
+                frame: [1]
+            }),
+            frameRate: 4,
+            yoyo: true,
+            repeat: -1
+        })
 
         this.anims.create({
             key:'climbing',
