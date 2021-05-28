@@ -21,6 +21,10 @@ export class LoadScene extends Phaser.Scene {
             frameWidth: 128,
             frameHeight: 96
         });
+        this.load.spritesheet('ladybug', './images/lady_bug.png', {
+            frameWidth: 128,
+            frameHeight: 96
+        });
     }
 
     create() {
@@ -59,6 +63,16 @@ export class LoadScene extends Phaser.Scene {
             yoyo: true,
             repeat: -1
 
+        });
+
+        this.anims.create({
+            key: 'ladybug-flying',
+            frames: this.anims.generateFrameNames('ladybug', {
+                frames:[0, 1]
+            }),
+            frameRate: 4,
+            yoyo: true,
+            repeat: -1
         });
     }
 }

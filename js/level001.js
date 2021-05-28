@@ -1,4 +1,5 @@
 import { Player } from "./player.js";
+import { Bug } from "./bug.js";
 
 let levelData = [
     {
@@ -30,6 +31,25 @@ let levelData = [
     }
 ]
 
+let ladybugsData = [
+    {
+        x: 1664,
+        y:1728,
+        key: 'ladybug',
+        frame: 0,
+        animation: 'ladybug-flying',
+        min: {
+            x: 736,
+            y:1728
+        },
+        max: {
+            x: 1664,
+            y: 1728
+        },
+        velocity: 160
+    },
+]
+
 export class Level001 extends Phaser.Scene {
     constructor() {
         super('Level001');
@@ -57,8 +77,8 @@ export class Level001 extends Phaser.Scene {
         });
 
         this.snails = this.physics.add.staticGroup({
-
-        })
+            
+        });
         
         this.createPlatforms();
         this.createLadder();
@@ -111,14 +131,33 @@ export class Level001 extends Phaser.Scene {
         this.ladders.add(ladderTop);
     }
 
+    createSnails() {
+        snailData.forEach(snail => {
+            let newSnail = new Bug(this, snail);
+            this.snails.add(newSnail);
+        });
+    }
+
+    createLadybugs() {
+        ladybugData.forEach(ladybug => {
+            let newLadybug = new Bug(this, ladybug);
+            this.ladybugs.add(newLadybug);
+        });
+    }
+
     onLadder(player, ladder) {
         this.player.setOnLadder(true);
     }
 
-    onSnail()
+    onSnail(player, snail)
+    {
+        snail.destroy();
+    }
 
     update(time) {
         this.player.update(time);
+        this.snails.getChildren().forEach( snail => snail.update(time));
+
         this.player.setOnLadder(false);
     }
 }
